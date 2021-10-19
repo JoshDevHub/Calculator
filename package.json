@@ -1,0 +1,23 @@
+{
+  "name": "calculator",
+  "version": "1.0.0",
+  "description": "calculator app",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jmsmith1018/Calculator.git"
+  },
+  "author": "Josh Smith",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jmsmith1018/Calculator/issues"
+  },
+  "homepage": "https://github.com/jmsmith1018/Calculator#readme",
+  "devDependencies": {
+    "eslint": "^8.0.1",
+    "prettier": "2.4.1"
+  }
+}
