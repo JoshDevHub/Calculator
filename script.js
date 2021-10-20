@@ -12,7 +12,26 @@ const operate = (operator, firstNum, secondNum) => {
 };
 
 // console tests
-console.log(operate(add, 5, 5));
-console.log(operate(subtract, 5, 5));
-console.log(operate(divide, 5, 0));
-console.log(operate(multiply, 5, 5));
+// console.log(operate(add, 5, 5));
+// console.log(operate(subtract, 5, 5));
+// console.log(operate(divide, 5, 0));
+// console.log(operate(multiply, 5, 5));
+
+// document queries
+const calculatorDisplay = document.querySelector('.calculator__display__value');
+const numberKeys = document.querySelectorAll('.num__key');
+
+const numberInput = [];
+
+const updateDisplay = () => {
+  const numberOutput = numberInput.join('');
+  calculatorDisplay.textContent = numberOutput;
+}
+
+const getUserNumbers = (event) => {
+  let number = event.target.getAttribute('data-key');
+  numberInput.push(number);
+  updateDisplay();
+}
+
+numberKeys.forEach(key => key.addEventListener('click', getUserNumbers));
