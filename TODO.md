@@ -11,7 +11,7 @@
     - Add data attributes for each key on the calculator so their value can be accessed in script.js.
     - Add event listeners for each button that will extract their data and save it to a variable when the button is clicked.
     - Create a function that updates the display's textContent based on what the above variable holds. Run this in the buttons' event listener (?)
-- [ ] Make the calculator fully operational. Store the numbers that are input into the calculator and save the chosen operation. Call `operate()` when the user presses the equals key. Update display with solution.
+- [x] Make the calculator fully operational. Store the numbers that are input into the calculator and save the chosen operation. Call `operate()` when the user presses the equals key. Update display with solution.
 - [ ] Users should be able to string operations together.
 - [ ] Round numbers with long decimals so they don't overflow the display container.
 - [ ] Handle users pressing "=" key before their operator expression is complete.

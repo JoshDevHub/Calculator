@@ -1,37 +1,75 @@
 // work on operator functions
-const add = (firstNumSum, secondNumSum) => firstNumSum + secondNumSum;
-const subtract = (firstNumSub, secondNumSub) => firstNumSub - secondNumSub;
-const divide = (dividend, divisor) => {
-  if (divisor === 0) return 'Error! You cannot divide by zero!';
-  return dividend / divisor;
-};
-const multiply = (multiplicand, multiplier) => multiplicand * multiplier;
 
-const operate = (operator, firstNum, secondNum) => {
-  return operator(firstNum, secondNum);
-};
-
-// console tests
-// console.log(operate(add, 5, 5));
-// console.log(operate(subtract, 5, 5));
-// console.log(operate(divide, 5, 0));
-// console.log(operate(multiply, 5, 5));
+const calculator = {
+  add(augend, addend) {
+    return augend + addend;
+  },
+  subtract(minuend, subtrahend) {
+    return minuend - subtrahend;
+  },
+  divide(dividend, divisor) {
+    if (divisor === 0) return 'Error! You cannot divide by zero!';
+    return dividend / divisor;
+  },
+  multiply(multiplicand, multiplier) {
+    return multiplicand * multiplier;
+  },
+  operate(operator, firstNumber, secondNumber) {
+    switch (operator) {
+      case '+':
+        return this.add(firstNumber, secondNumber);
+      case '-':
+        return this.subtract(firstNumber, secondNumber);
+      case '/':
+        return this.divide(firstNumber, secondNumber);
+      case '*':
+        return this.multiply(firstNumber, secondNumber);
+    }
+  }
+}
 
 // document queries
 const calculatorDisplay = document.querySelector('.calculator__display__value');
 const numberKeys = document.querySelectorAll('.num__key');
+const operatorKeys = document.querySelectorAll('.operator__key');
+const equalsKey = document.querySelector('.equals__key');
 
 const numberInput = [];
+let operator = '';
+let firstNumber;
+let secondNumber;
 
-const updateDisplay = () => {
-  const numberOutput = numberInput.join('');
-  calculatorDisplay.textContent = numberOutput;
+const updateDisplay = (value) => {
+  calculatorDisplay.textContent = value;
+}
+
+const convertInputToNumber = () => {
+  return Number(numberInput.join(''));
 }
 
 const getUserNumbers = (event) => {
-  let number = event.target.getAttribute('data-key');
-  numberInput.push(number);
-  updateDisplay();
+  let userInput = event.target.getAttribute('data-key');
+  numberInput.push(userInput);
+  const number = convertInputToNumber(numberInput);
+  updateDisplay(number);
+}
+
+const clearNumberInput = () => {
+  numberInput.length = 0;
+}
+
+const operatorClickHandler = (event) => {
+  operator = event.target.getAttribute('data-key');
+  firstNumber = convertInputToNumber();
+  clearNumberInput();
+}
+
+const equalsClickHandler = () => {
+  secondNumber = convertInputToNumber();
+  const output = calculator.operate(operator, firstNumber, secondNumber);
+  updateDisplay(output);
 }
 
 numberKeys.forEach(key => key.addEventListener('click', getUserNumbers));
+operatorKeys.forEach(key => key.addEventListener('click', operatorClickHandler));
+equalsKey.addEventListener('click', equalsClickHandler);
