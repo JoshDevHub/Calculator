@@ -3,32 +3,32 @@ const calculator = {
   currentValue: '',
   previousValue: '',
   operator: '',
-  add(augend, addend) {
-    return augend + addend;
+  add() {
+    return this.previousValue + this.currentValue;
   },
-  subtract(minuend, subtrahend) {
-    return minuend - subtrahend;
+  subtract() {
+    return this.previousValue - this.currentValue;
   },
-  divide(dividend, divisor) {
-    if (divisor === 0) return 'Error! You cannot divide by zero!';
-    return dividend / divisor;
+  divide() {
+    if (this.currentValue === 0) return 'Error! You cannot divide by zero!';
+    return this.previousValue / this.currentValue;
   },
-  multiply(multiplicand, multiplier) {
-    return multiplicand * multiplier;
+  multiply() {
+    return this.previousValue * this.currentValue;
   },
   operate() {
     switch (this.operator) {
       case '+':
-        this.currentValue = this.add(this.currentValue, this.previousValue);
+        this.currentValue = this.add();
         break;
       case '-':
-        this.currentValue = this.subtract(this.currentValue, this.previousValue);
+        this.currentValue = this.subtract();
         break;
       case '/':
-        this.currentValue = this.divide(this.currentValue, this.previousValue);
+        this.currentValue = this.divide();
         break;
       case '*':
-        this.currentValue = this.multiply(this.currentValue, this.previousValue);
+        this.currentValue = this.multiply();
         break;
     }
   },
@@ -63,6 +63,7 @@ const operatorKeys = document.querySelectorAll('.operator__key');
 const equalsKey = document.querySelector('.equals__key');
 const clearKey = document.querySelector('.clear__key');
 
+// event handlers
 const numKeyClickHandler = (event) => {
   const userInput = event.target.getAttribute('data-key');
   calculator.typeToCurrentValue(userInput);
