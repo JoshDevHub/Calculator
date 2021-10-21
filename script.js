@@ -1,6 +1,8 @@
-// work on operator functions
-
+// calculator object
 const calculator = {
+  currentValue: '',
+  previousValue: '',
+  operator: '',
   add(augend, addend) {
     return augend + addend;
   },
@@ -14,18 +16,44 @@ const calculator = {
   multiply(multiplicand, multiplier) {
     return multiplicand * multiplier;
   },
-  operate(operator, firstNumber, secondNumber) {
-    switch (operator) {
+  operate() {
+    switch (this.operator) {
       case '+':
-        return this.add(firstNumber, secondNumber);
+        this.currentValue = this.add(this.currentValue, this.previousValue);
+        break;
       case '-':
-        return this.subtract(firstNumber, secondNumber);
+        this.currentValue = this.subtract(this.currentValue, this.previousValue);
+        break;
       case '/':
-        return this.divide(firstNumber, secondNumber);
+        this.currentValue = this.divide(this.currentValue, this.previousValue);
+        break;
       case '*':
-        return this.multiply(firstNumber, secondNumber);
+        this.currentValue = this.multiply(this.currentValue, this.previousValue);
+        break;
     }
-  }
+  },
+  clear() {
+    this.currentValue = '';
+    this.previousValue = '';
+    this.operator = '';
+    this.updateDisplay();
+  },
+  equals() {
+    this.operate();
+    this.updateDisplay();
+  },
+  typeToCurrentValue(input) {
+    this.currentValue += input;
+    this.updateDisplay();
+  },
+  selectOperator(input) {
+    this.operator = input;
+    this.previousValue = this.currentValue;
+    this.currentValue = '';
+  },
+  updateDisplay() {
+    calculatorDisplay.textContent = this.currentValue;
+  },
 }
 
 // document queries
@@ -35,63 +63,27 @@ const operatorKeys = document.querySelectorAll('.operator__key');
 const equalsKey = document.querySelector('.equals__key');
 const clearKey = document.querySelector('.clear__key');
 
-const numberInput = [];
-let operator = '';
-let firstNumber;
-let secondNumber;
-
-const updateDisplay = (value) => {
-  calculatorDisplay.textContent = value;
+const numKeyClickHandler = (event) => {
+  const userInput = event.target.getAttribute('data-key');
+  calculator.typeToCurrentValue(userInput);
+  calculator.updateDisplay();
 }
 
-const convertInputToNumber = () => {
-  return Number(numberInput.join(''));
-}
-
-const getUserNumbers = (event) => {
-  let userInput = event.target.getAttribute('data-key');
-  numberInput.push(userInput);
-  const number = convertInputToNumber(numberInput);
-  updateDisplay(number);
-}
-
-const clearNumberInput = () => {
-  numberInput.length = 0;
+const clearKeyHandler = () => {
+  calculator.clear();
 }
 
 const operatorClickHandler = (event) => {
-  operator = event.target.getAttribute('data-key');
-  firstNumber = convertInputToNumber();
-  clearNumberInput();
+  const userInput = event.target.getAttribute('data-key');
+  calculator.selectOperator(userInput);
 }
 
 const equalsClickHandler = () => {
-  secondNumber = convertInputToNumber();
-  const output = calculator.operate(operator, firstNumber, secondNumber);
-  updateDisplay(output);
+  calculator.equals();
 }
 
-const clearClickHander = () => {
-  numberInput.length = 0;
-  operator = '';
-  firstNumber = 0;
-  secondNumber = 0;
-  updateDisplay(0);
-}
-
-numberKeys.forEach(key => key.addEventListener('click', getUserNumbers));
+numberKeys.forEach(key => key.addEventListener('click', numKeyClickHandler));
 operatorKeys.forEach(key => key.addEventListener('click', operatorClickHandler));
 equalsKey.addEventListener('click', equalsClickHandler);
-clearKey.addEventListener('click', clearClickHander);
+clearKey.addEventListener('click', clearKeyHandler);
 
-/** Pseudo Code for Operation Chaining
- *  firstNumber clicked -> operator clicked -> secondNumber clicked
- *  if equals is clicked, display result.
- *    if equals is followed by a number input, dump the result and start a brand
- *    new operation.
- *    if equals is followed by an operator, use the result as the initial number
- *    in the following operation.
- *  if operator is clicked after num+operator+num, do the first operation and
- *  use its result as the initial value in the next operation.
- *
- */
