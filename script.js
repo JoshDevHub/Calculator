@@ -33,6 +33,7 @@ const calculatorDisplay = document.querySelector('.calculator__display__value');
 const numberKeys = document.querySelectorAll('.num__key');
 const operatorKeys = document.querySelectorAll('.operator__key');
 const equalsKey = document.querySelector('.equals__key');
+const clearKey = document.querySelector('.clear__key');
 
 const numberInput = [];
 let operator = '';
@@ -70,6 +71,27 @@ const equalsClickHandler = () => {
   updateDisplay(output);
 }
 
+const clearClickHander = () => {
+  numberInput.length = 0;
+  operator = '';
+  firstNumber = 0;
+  secondNumber = 0;
+  updateDisplay(0);
+}
+
 numberKeys.forEach(key => key.addEventListener('click', getUserNumbers));
 operatorKeys.forEach(key => key.addEventListener('click', operatorClickHandler));
 equalsKey.addEventListener('click', equalsClickHandler);
+clearKey.addEventListener('click', clearClickHander);
+
+/** Pseudo Code for Operation Chaining
+ *  firstNumber clicked -> operator clicked -> secondNumber clicked
+ *  if equals is clicked, display result.
+ *    if equals is followed by a number input, dump the result and start a brand
+ *    new operation.
+ *    if equals is followed by an operator, use the result as the initial number
+ *    in the following operation.
+ *  if operator is clicked after num+operator+num, do the first operation and
+ *  use its result as the initial value in the next operation.
+ *
+ */
