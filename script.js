@@ -3,43 +3,55 @@ const calculator = {
   currentValue: '',
   previousValue: '',
   operator: '',
+
+  /**
+   * bool to check if equals key has just been pressed, which allows for resetting
+   * everything if the user goes to pressing number keys after equals key.
+   */
+  equalToggle: false,
   add() {
-    return this.previousValue + this.currentValue;
+    return Number(this.previousValue) + Number(this.currentValue);
   },
   subtract() {
-    return this.previousValue - this.currentValue;
+    return Number(this.previousValue) - Number(this.currentValue);
   },
   divide() {
-    if (this.currentValue === 0) return 'Error! You cannot divide by zero!';
-    return this.previousValue / this.currentValue;
+    if (Number(this.currentValue) === 0) {
+      return 'Error! You cannot divide by zero!';
+    }
+    return Number(this.previousValue) / Number(this.currentValue);
   },
   multiply() {
-    return this.previousValue * this.currentValue;
+    return Number(this.previousValue) * Number(this.currentValue);
   },
   operate() {
+    let result;
     switch (this.operator) {
       case '+':
-        this.currentValue = this.add();
+        result = this.add();
         break;
       case '-':
-        this.currentValue = this.subtract();
+        result = this.subtract();
         break;
       case '/':
-        this.currentValue = this.divide();
+        result = this.divide();
         break;
       case '*':
-        this.currentValue = this.multiply();
+        result = this.multiply();
         break;
     }
+    this.currentValue = result.toString();
   },
   clear() {
     this.currentValue = '';
     this.previousValue = '';
     this.operator = '';
+    this.equalToggle = false;
     this.updateDisplay();
   },
   equals() {
     this.operate();
+    this.operator = '';
     this.updateDisplay();
   },
   typeToCurrentValue(input) {
@@ -54,7 +66,7 @@ const calculator = {
   updateDisplay() {
     calculatorDisplay.textContent = this.currentValue;
   },
-}
+};
 
 // document queries
 const calculatorDisplay = document.querySelector('.calculator__display__value');
@@ -65,26 +77,33 @@ const clearKey = document.querySelector('.clear__key');
 
 // event handlers
 const numKeyClickHandler = (event) => {
+  if (calculator.equalToggle) calculator.clear();
   const userInput = event.target.getAttribute('data-key');
   calculator.typeToCurrentValue(userInput);
   calculator.updateDisplay();
-}
-
-const clearKeyHandler = () => {
-  calculator.clear();
-}
+};
 
 const operatorClickHandler = (event) => {
-  const userInput = event.target.getAttribute('data-key');
-  calculator.selectOperator(userInput);
-}
+  calculator.equalToggle = false;
+  if (!calculator.operator) {
+    const userInput = event.target.getAttribute('data-key');
+    calculator.selectOperator(userInput);
+  } else {
+    calculator.operate();
+    calculator.updateDisplay();
+    const userInput = event.target.getAttribute('data-key');
+    calculator.selectOperator(userInput);
+  }
+};
 
 const equalsClickHandler = () => {
   calculator.equals();
-}
+  calculator.equalToggle = true;
+};
 
-numberKeys.forEach(key => key.addEventListener('click', numKeyClickHandler));
-operatorKeys.forEach(key => key.addEventListener('click', operatorClickHandler));
+numberKeys.forEach((key) => key.addEventListener('click', numKeyClickHandler));
+operatorKeys.forEach((key) =>
+  key.addEventListener('click', operatorClickHandler)
+);
 equalsKey.addEventListener('click', equalsClickHandler);
-clearKey.addEventListener('click', clearKeyHandler);
-
+clearKey.addEventListener('click', () => calculator.clear());

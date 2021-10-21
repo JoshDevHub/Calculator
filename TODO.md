@@ -13,9 +13,11 @@
     - Create a function that updates the display's textContent based on what the above variable holds. Run this in the buttons' event listener (?)
 
 - [x] Make the calculator fully operational. Store the numbers that are input into the calculator and save the chosen operation. Call `operate()` when the user presses the equals key. Update display with solution.
-- [ ] Users should be able to string operations together.
-    - **Planning/Pseudo Code**
-    - refactor into more object oriented approach.
+- [x] Users should be able to string operations together.
+- [x] Test operationg stringing. Do these with each operation.
+    - number op number op number op ...
+    - number op number equals number op number ...
+    - number op number equals op number equals op number ...
     
 
 - [ ] Round numbers with long decimals so they don't overflow the display container.
