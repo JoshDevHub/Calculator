@@ -14,12 +14,20 @@
 
 - [x] Make the calculator fully operational. Store the numbers that are input into the calculator and save the chosen operation. Call `operate()` when the user presses the equals key. Update display with solution.
 - [x] Users should be able to string operations together.
-- [x] Test operationg stringing. Do these with each operation.
+- [x] Test operation stringing. Do these with each operation.
     - number op number op number op ...
     - number op number equals number op number ...
     - number op number equals op number equals op number ...
     
 - [ ] Float support.
+    **Planning**
+    - Hook up html decimal button in script
+    - Only allow the user to input one decimal.
+        - pseudo: if (input is '.' && currentValue has ('.')) return;
+    - Find limits of characters in the display viewport and make sure numbers don't overflow the display container.
+    - Research fixing floating point arithmetic quirks (0.1 + 0.2)
+    
+
 - [ ] Round numbers with long decimals so they don't overflow the display container.
 - [ ] Handle users pressing "=" key before their operator expression is complete.
 - [x] Pressing "clear" should wipe all data.

@@ -53,6 +53,7 @@ const calculator = {
     this.operate();
     this.operator = '';
     this.updateDisplay();
+    this.equalToggle = true;
   },
   typeToCurrentValue(input) {
     this.currentValue += input;
@@ -79,6 +80,7 @@ const clearKey = document.querySelector('.clear__key');
 const numKeyClickHandler = (event) => {
   if (calculator.equalToggle) calculator.clear();
   const userInput = event.target.getAttribute('data-key');
+  if (userInput === '.' && calculator.currentValue.includes('.')) return;
   calculator.typeToCurrentValue(userInput);
   calculator.updateDisplay();
 };
@@ -96,14 +98,9 @@ const operatorClickHandler = (event) => {
   }
 };
 
-const equalsClickHandler = () => {
-  calculator.equals();
-  calculator.equalToggle = true;
-};
-
 numberKeys.forEach((key) => key.addEventListener('click', numKeyClickHandler));
 operatorKeys.forEach((key) =>
   key.addEventListener('click', operatorClickHandler)
 );
-equalsKey.addEventListener('click', equalsClickHandler);
+equalsKey.addEventListener('click', () => calculator.equals());
 clearKey.addEventListener('click', () => calculator.clear());
