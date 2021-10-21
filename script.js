@@ -40,7 +40,12 @@ const calculator = {
         result = this.multiply();
         break;
     }
-    this.currentValue = result.toString();
+    if (typeof result === 'string') {
+      this.currentValue = result;
+    } else {
+      const correctedResult = parseFloat(result.toPrecision(12));
+      this.currentValue = correctedResult.toString();
+    }
   },
   clear() {
     this.currentValue = '';
@@ -50,6 +55,7 @@ const calculator = {
     this.updateDisplay();
   },
   equals() {
+    if (!this.currentValue || !this.previousValue) return;
     this.operate();
     this.operator = '';
     this.updateDisplay();

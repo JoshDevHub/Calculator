@@ -19,7 +19,7 @@
     - number op number equals number op number ...
     - number op number equals op number equals op number ...
     
-- [ ] Float support.
+- [x] Float support.
     **Planning**
     - Hook up html decimal button in script
     - Only allow the user to input one decimal.
@@ -28,7 +28,7 @@
     - Research fixing floating point arithmetic quirks (0.1 + 0.2)
     
 
-- [ ] Round numbers with long decimals so they don't overflow the display container.
+- [x] Round numbers with long decimals so they don't overflow the display container.
 - [ ] Handle users pressing "=" key before their operator expression is complete.
 - [x] Pressing "clear" should wipe all data.
 - [ ] Handle division by 0.
