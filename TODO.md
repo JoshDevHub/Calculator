@@ -7,7 +7,7 @@
 - [x] Create a function called `operate()` that takes an operator and 2 numbers and the corresponding operation on the 2 numbers.
 - [x] Create calculator UI with HTML and CSS. Has buttons for each digit, the 4 operations, an "equals" button, a "clear" button, and a section for displaying the input and output.
 - [x] Create functions for populating the display when number buttons are clicked. Display value should be stored in a variable.
-    - **Planning/Psuedo Code**
+    - **Planning**
     - Add data attributes for each key on the calculator so their value can be accessed in script.js.
     - Add event listeners for each button that will extract their data and save it to a variable when the button is clicked.
     - Create a function that updates the display's textContent based on what the above variable holds. Run this in the buttons' event listener (?)
@@ -29,12 +29,24 @@
     
 
 - [x] Round numbers with long decimals so they don't overflow the display container.
+
 - [ ] Handle users pressing "=" key before their operator expression is complete.
+    **Planning**
+    - Define behavior wanted from pressing keys out of order.
+    - Repeatedly pressing equals? Should it do anything?
+    - Pressing multiple operators in a row -- what should happen?
+    - Test typing in large numbers.
+
 - [x] Pressing "clear" should wipe all data.
 - [ ] Handle division by 0.
+    - NOTE: technically handled but I think I want to refactor how it's done.
+- [ ] Overall Refactoring
+    - Put event handlers in an object.
+    - Review calculator object.
+    - Review selectors.
 
 ## Extra
 
 - [ ] Make it pretty :blush:
-- [ ] Add a backspace button.
+- [ ] Add a backspace button. Replace percentage or negative sign?
 - [ ] Add keyboard support.
