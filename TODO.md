@@ -19,7 +19,7 @@
     - number op number equals number op number ...
     - number op number equals op number equals op number ...
     
-
+- [ ] Float support.
 - [ ] Round numbers with long decimals so they don't overflow the display container.
 - [ ] Handle users pressing "=" key before their operator expression is complete.
 - [x] Pressing "clear" should wipe all data.
