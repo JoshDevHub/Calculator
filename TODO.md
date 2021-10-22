@@ -30,6 +30,10 @@
 
 - [x] Round numbers with long decimals so they don't overflow the display container.
 
+- [ ] Handle users typing too many characters into the display.
+    **Planning**
+    - Have the number keys still update currentValue but alter the way the display shows characters?
+
 - [ ] Handle users pressing "=" key before their operator expression is complete.
     **Planning**
     - Define behavior wanted from pressing keys out of order.
