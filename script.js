@@ -40,6 +40,7 @@ const calculator = {
         result = this.multiply();
         break;
     }
+    // Probably refactor this. Difficult to tell what it's for (checking divide by zero);
     if (typeof result === 'string') {
       this.currentValue = result;
     } else {
@@ -55,6 +56,7 @@ const calculator = {
     this.updateDisplay();
   },
   equals() {
+    // Prevent equals being pressed repeatedly.
     if (!this.currentValue || !this.previousValue) return;
     this.operate();
     this.operator = '';
@@ -86,6 +88,8 @@ const clearKey = document.querySelector('.clear__key');
 const numKeyClickHandler = (event) => {
   if (calculator.equalToggle) calculator.clear();
   const userInput = event.target.getAttribute('data-key');
+  
+  // Prevents the user from entering multiple decimals
   if (userInput === '.' && calculator.currentValue.includes('.')) return;
   calculator.typeToCurrentValue(userInput);
   calculator.updateDisplay();
@@ -94,8 +98,8 @@ const numKeyClickHandler = (event) => {
 const operatorClickHandler = (event) => {
   calculator.equalToggle = false;
   if (!calculator.operator) {
-    const userInput = event.target.getAttribute('data-key');
-    calculator.selectOperator(userInput);
+    const userSelection = event.target.getAttribute('data-key');
+    calculator.selectOperator(userSelection);
   } else {
     calculator.operate();
     calculator.updateDisplay();
@@ -104,6 +108,7 @@ const operatorClickHandler = (event) => {
   }
 };
 
+// Add event listeners
 numberKeys.forEach((key) => key.addEventListener('click', numKeyClickHandler));
 operatorKeys.forEach((key) =>
   key.addEventListener('click', operatorClickHandler)
