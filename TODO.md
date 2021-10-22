@@ -30,16 +30,14 @@
 
 - [x] Round numbers with long decimals so they don't overflow the display container.
 
-- [ ] Handle users typing too many characters into the display.
+- [x] Handle users typing too many characters into the display.
     **Planning**
     - Have the number keys still update currentValue but alter the way the display shows characters?
 
-- [ ] Handle users pressing "=" key before their operator expression is complete.
+- [ ] Handle users pressing "=" key before their operator expression is complete. Also handle users pressing operator keys in unintentional orders
     **Planning**
     - Define behavior wanted from pressing keys out of order.
-    - Repeatedly pressing equals? Should it do anything?
-    - Pressing multiple operators in a row -- what should happen?
-    - Test typing in large numbers.
+
 
 - [x] Pressing "clear" should wipe all data.
 - [ ] Handle division by 0.

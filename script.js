@@ -3,6 +3,7 @@ const calculator = {
   currentValue: '',
   previousValue: '',
   operator: '',
+  maxDisplayDigits: 12,
 
   /**
    * bool to check if equals key has just been pressed, which allows for resetting
@@ -44,7 +45,9 @@ const calculator = {
     if (typeof result === 'string') {
       this.currentValue = result;
     } else {
-      const correctedResult = parseFloat(result.toPrecision(12));
+      const correctedResult = parseFloat(
+        result.toPrecision(this.maxDisplayDigits)
+      );
       this.currentValue = correctedResult.toString();
     }
   },
@@ -73,7 +76,14 @@ const calculator = {
     this.currentValue = '';
   },
   updateDisplay() {
-    calculatorDisplay.textContent = this.currentValue;
+    // prevent display text from overflowing
+    if (this.currentValue.length > this.maxDisplayDigits) {
+      calculatorDisplay.textContent = this.currentValue.slice(
+        -this.maxDisplayDigits
+      );
+    } else {
+      calculatorDisplay.textContent = this.currentValue;
+    }
   },
 };
 
@@ -88,7 +98,7 @@ const clearKey = document.querySelector('.clear__key');
 const numKeyClickHandler = (event) => {
   if (calculator.equalToggle) calculator.clear();
   const userInput = event.target.getAttribute('data-key');
-  
+
   // Prevents the user from entering multiple decimals
   if (userInput === '.' && calculator.currentValue.includes('.')) return;
   calculator.typeToCurrentValue(userInput);
