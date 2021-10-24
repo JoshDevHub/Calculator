@@ -34,21 +34,40 @@
     **Planning**
     - Have the number keys still update currentValue but alter the way the display shows characters?
 
-- [ ] Handle users pressing "=" key before their operator expression is complete. Also handle users pressing operator keys in unintentional orders
+- [ ] Handle operator selection better.
     **Planning**
-    - Define behavior wanted from pressing keys out of order.
+    - Currently app breaks if user repeatedly presses operators or presses operators at illogical points.
+    - Make operators work similar to [example](https://mrbuddh4.github.io/calculator/)
+    - Keep operator 'pressed' after user clicks it. If user clicks current operator again, operate with:
+        `previousValue = currentValue`
+        `operate()`
+        allow operators to be pressed again
+    - Other operator buttons are disabled until some action resets `operator`.
+    - Disable operator buttons if there is no `currentValue`.
 
 
 - [x] Pressing "clear" should wipe all data.
+
 - [ ] Handle division by 0.
-    - NOTE: technically handled but I think I want to refactor how it's done.
+    **Planning**
+    - Currently displays error message to the display.
+    - Need to also run clear() after this error happens.
+
+- [ ] Make '%' Button functional.
+
+- [ ] Replace '+/-' key with backspace and give the app backspace functionality.
+
+- [ ] Add keyboard support.
+
+- [ ] Styling
+    **Planning**
+    - Alter colors of buttons -- make different groups of buttons different colors.
+    - Change fonts. Use icons for the operators.
+    - Develop hover / click affects for the buttons. Convey the operator system to the user. (Might need to work with script on this)
+    - Footer?
+
 - [ ] Overall Refactoring
-    - Put event handlers in an object.
+    - Reconsider organization of markup and CSS
+    - Put event handlers in an object?
     - Review calculator object.
     - Review selectors.
-
-## Extra
-
-- [ ] Make it pretty :blush:
-- [ ] Add a backspace button. Replace percentage or negative sign?
-- [ ] Add keyboard support.
