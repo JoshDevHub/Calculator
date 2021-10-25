@@ -18,7 +18,7 @@ const calculator = {
   },
   divide() {
     if (Number(this.currentValue) === 0) {
-      return 'Error! You cannot divide by zero!';
+      return 'Error!';
     }
     return Number(this.previousValue) / Number(this.currentValue);
   },
@@ -42,7 +42,7 @@ const calculator = {
         break;
     }
     // Probably refactor this. Difficult to tell what it's for (checking divide by zero);
-    if (typeof result === 'string') {
+    if (result === 'Error!') {
       this.currentValue = result;
     } else {
       const correctedResult = parseFloat(
