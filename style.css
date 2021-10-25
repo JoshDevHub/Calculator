@@ -11,10 +11,11 @@ button {
   --calc-color: #007a99;
   --calc-display: hsl(192, 100%, 10%);
   --main-bg-color: hsl(231, 100%, 3%);
-  --orange-color: hsl(29, 100%, 30%);
-  --dim-orange-color: hsl(29, 100%, 20%);
-  --red-color: hsl(11, 90%, 25%);
+  --orange-color: hsl(29, 100%, 74%);
+  --dim-orange-color: hsl(29, 100%, 75%);
+  --red-color: hsl(0, 75%, 75%);
   --white-color: hsl(0, 5%, 93%);
+  --pale-blue: hsl(199, 92%, 85%);
 }
 
 *, *::before, *::after {
@@ -23,7 +24,7 @@ button {
 
 html {
   background-color: var(--main-bg-color);
-  color: white;
+  color: var(--white-color);
   font-size: 16px;
   text-align: center;
 }
@@ -47,8 +48,13 @@ html {
   border: 1px solid black;
   flex-basis: 28%;
   padding-right: 1rem;
-  padding-top: 5rem;
+  padding-top: 4rem;
   text-align: right;
+}
+
+.calculator__display__value {
+  font-family: "Chakra Petch";
+  font-size: 2rem;
 }
 
 
@@ -94,7 +100,7 @@ button:disabled {
 
 .active {
   background-color: var(--orange-color);
-  color: white;
+  color: black;
   box-shadow: 2px 2px 3px 0px rgba(0,0,0,0.75) inset;
   -webkit-box-shadow: 2px 2px 3px 0px rgba(0,0,0,0.75) inset;
   -moz-box-shadow: 2px 2px 3px 0px rgba(0,0,0,0.75) inset;
@@ -104,3 +110,14 @@ button:disabled {
   background-color: var(--red-color);
   font-weight: bold;
 }
+
+.equals__key {
+  background-color: var(--pale-blue);
+}
+
+.num__key {
+  font-family: "Bitter";
+  font-size: 1rem;
+}
+
+/* Extensive refactor needed */
