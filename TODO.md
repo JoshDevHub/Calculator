@@ -49,9 +49,7 @@
     - Currently displays error message to the display.
     - Need to also run clear() after this error happens.
 
-- [ ] Make '%' Button functional.
-
-- [ ] Replace '+/-' key with backspace and give the app backspace functionality.
+- [x] Replace '+/-' key with backspace and give the app backspace functionality.
 
 - [ ] Add keyboard support.
 

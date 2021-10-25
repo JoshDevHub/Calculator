@@ -91,6 +91,10 @@ const calculator = {
       calculatorDisplay.textContent = this.currentValue;
     }
   },
+  delete() {
+    this.currentValue = this.currentValue.slice(0, -1);
+    this.updateDisplay();
+  },
 };
 
 // document queries
@@ -99,6 +103,7 @@ const numberKeys = document.querySelectorAll('.num__key');
 const operatorKeys = document.querySelectorAll('.operator__key');
 const equalsKey = document.querySelector('.equals__key');
 const clearKey = document.querySelector('.clear__key');
+const delKey = document.querySelector('.del__key');
 
 const operatorButtonToggle = () => {
   if (calculator.operatorToggle) {
@@ -150,3 +155,4 @@ operatorKeys.forEach((key) =>
 );
 equalsKey.addEventListener('click', () => calculator.equals());
 clearKey.addEventListener('click', () => calculator.clear());
+delKey.addEventListener('click', () => calculator.delete());
