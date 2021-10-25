@@ -39,7 +39,7 @@
     - Currently app breaks if user repeatedly presses operators or presses operators at illogical points.
     - Keep operator 'pressed' after user clicks it. Disable operator buttons until a new button is pressed.
 
-- [ ] Fix erros with repeated equals usage.
+- [x] Fix erros with repeated equals usage.
 
 
 - [x] Pressing "clear" should wipe all data.

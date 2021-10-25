@@ -67,6 +67,7 @@ const calculator = {
     this.operate();
     this.operator = '';
     this.updateDisplay();
+    this.previousValue = '';
     this.equalToggle = true;
     this.operatorToggle = false;
     operatorButtonToggle();
