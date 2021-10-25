@@ -37,13 +37,7 @@
 - [ ] Handle operator selection better.
     **Planning**
     - Currently app breaks if user repeatedly presses operators or presses operators at illogical points.
-    - Make operators work similar to [example](https://mrbuddh4.github.io/calculator/)
-    - Keep operator 'pressed' after user clicks it. If user clicks current operator again, operate with:
-        `previousValue = currentValue`
-        `operate()`
-        allow operators to be pressed again
-    - Other operator buttons are disabled until some action resets `operator`.
-    - Disable operator buttons if there is no `currentValue`.
+    - Keep operator 'pressed' after user clicks it. Disable operator buttons until a new button is pressed.
 
 
 - [x] Pressing "clear" should wipe all data.
