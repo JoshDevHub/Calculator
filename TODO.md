@@ -34,10 +34,12 @@
     **Planning**
     - Have the number keys still update currentValue but alter the way the display shows characters?
 
-- [ ] Handle operator selection better.
+- [x] Handle operator selection better.
     **Planning**
     - Currently app breaks if user repeatedly presses operators or presses operators at illogical points.
     - Keep operator 'pressed' after user clicks it. Disable operator buttons until a new button is pressed.
+
+- [ ] Fix erros with repeated equals usage.
 
 
 - [x] Pressing "clear" should wipe all data.
