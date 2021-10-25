@@ -10,6 +10,7 @@ const calculator = {
    * everything if the user goes to pressing number keys after equals key.
    */
   equalToggle: false,
+  operatorToggle: false,
   add() {
     return Number(this.previousValue) + Number(this.currentValue);
   },
@@ -56,6 +57,8 @@ const calculator = {
     this.previousValue = '';
     this.operator = '';
     this.equalToggle = false;
+    this.operatorToggle = false;
+    operatorButtonToggle();
     this.updateDisplay();
   },
   equals() {
@@ -65,6 +68,8 @@ const calculator = {
     this.operator = '';
     this.updateDisplay();
     this.equalToggle = true;
+    this.operatorToggle = false;
+    operatorButtonToggle();
   },
   typeToCurrentValue(input) {
     this.currentValue += input;
@@ -94,8 +99,23 @@ const operatorKeys = document.querySelectorAll('.operator__key');
 const equalsKey = document.querySelector('.equals__key');
 const clearKey = document.querySelector('.clear__key');
 
+const operatorButtonToggle = () => {
+  if (calculator.operatorToggle) {
+    for (let key of operatorKeys) {
+      key.disabled = true;
+    }
+  } else {
+    operatorKeys.forEach((key) => {
+      key.disabled = false;
+      key.classList.remove('active');
+    });
+  }
+};
+
 // event handlers
 const numKeyClickHandler = (event) => {
+  calculator.operatorToggle = false;
+  operatorButtonToggle();
   if (calculator.equalToggle) calculator.clear();
   const userInput = event.target.getAttribute('data-key');
 
@@ -106,7 +126,11 @@ const numKeyClickHandler = (event) => {
 };
 
 const operatorClickHandler = (event) => {
+  if (!calculator.currentValue && !calculator.previousValue) return;
   calculator.equalToggle = false;
+  calculator.operatorToggle = true;
+  event.target.classList.add('active');
+  operatorButtonToggle();
   if (!calculator.operator) {
     const userSelection = event.target.getAttribute('data-key');
     calculator.selectOperator(userSelection);
