@@ -6,8 +6,8 @@ const calculator = {
   maxDisplayDigits: 12,
 
   /**
-   * bools to check if equals or operator has just been pressed, which allows 
-   * calculator state to be reset if a number is keyed after equals, and allows 
+   * bools to check if equals or operator has just been pressed, which allows
+   * calculator state to be reset if a number is keyed after equals, and allows
    * operator keys to be disabled after user chooses an operator.
    */
   equalToggle: false,
@@ -43,10 +43,10 @@ const calculator = {
         result = this.multiply();
         break;
     }
-    // Probably refactor this. Difficult to tell what it's for (checking divide by zero);
     if (result === 'Error!') {
       this.currentValue = result;
     } else {
+      // Round numbers to the precision allowed by the display.
       const correctedResult = parseFloat(
         result.toPrecision(this.maxDisplayDigits)
       );
@@ -75,13 +75,17 @@ const calculator = {
     this.previousValue = '';
     this.equalToggle = true;
     this.operatorToggle = false;
-    this.toggleOperatorButtons();
   },
   typeToCurrentValue(input) {
     // Prevents user from entering multiple decimals
     if (input === '.' && this.currentValue.includes('.')) return;
     // Prevents user entering useless zeroes
-    if (input === '0' && this.currentValue.startsWith('0') && !this.currentValue.includes('.')) return;
+    if (
+      input === '0' &&
+      this.currentValue.startsWith('0') &&
+      !this.currentValue.includes('.')
+    )
+      return;
     this.currentValue += input;
     this.updateDisplay(this.currentValue);
   },
@@ -93,9 +97,10 @@ const calculator = {
   updateDisplay(value) {
     // prevent display text from overflowing
     if (value.length > this.maxDisplayDigits) {
-      calculatorDisplay.textContent = value.slice(
-        -this.maxDisplayDigits
+      const expValue = parseFloat(value).toExponential(
+        this.maxDisplayDigits - 5
       );
+      calculatorDisplay.textContent = expValue;
     } else {
       calculatorDisplay.textContent = value;
     }
@@ -106,18 +111,18 @@ const calculator = {
   },
   toggleOperatorButtons() {
     if (this.operatorToggle) {
-      operatorKeys.forEach((key) => key.disabled = true);
+      operatorKeys.forEach((key) => (key.disabled = true));
     } else {
       operatorKeys.forEach((key) => {
         key.disabled = false;
         key.classList.remove('active');
-      })
+      });
     }
   },
   handleDivideByZero() {
     this.clear();
     this.updateDisplay('NO CAN DO');
-  }
+  },
 };
 
 // document queries
