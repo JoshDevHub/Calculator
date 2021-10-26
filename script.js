@@ -58,7 +58,7 @@ const calculator = {
     this.operator = '';
     this.equalToggle = false;
     this.operatorToggle = false;
-    operatorButtonToggle();
+    this.toggleOperatorButtons();
     this.updateDisplay();
   },
   equals() {
@@ -70,9 +70,11 @@ const calculator = {
     this.previousValue = '';
     this.equalToggle = true;
     this.operatorToggle = false;
-    operatorButtonToggle();
+    this.toggleOperatorButtons();
   },
   typeToCurrentValue(input) {
+    // Prevents user from entering multiple decimals
+    if (input === '.' && this.currentValue.includes('.')) return;
     this.currentValue += input;
     this.updateDisplay();
   },
@@ -95,6 +97,16 @@ const calculator = {
     this.currentValue = this.currentValue.slice(0, -1);
     this.updateDisplay();
   },
+  toggleOperatorButtons() {
+    if (this.operatorToggle) {
+      operatorKeys.forEach((key) => key.disabled = true);
+    } else {
+      operatorKeys.forEach((key) => {
+        key.disabled = false;
+        key.classList.remove('active');
+      })
+    }
+  }
 };
 
 // document queries
@@ -105,28 +117,12 @@ const equalsKey = document.querySelector('.equals__key');
 const clearKey = document.querySelector('.clear__key');
 const delKey = document.querySelector('.del__key');
 
-const operatorButtonToggle = () => {
-  if (calculator.operatorToggle) {
-    for (let key of operatorKeys) {
-      key.disabled = true;
-    }
-  } else {
-    operatorKeys.forEach((key) => {
-      key.disabled = false;
-      key.classList.remove('active');
-    });
-  }
-};
-
 // event handlers
 const numKeyClickHandler = (event) => {
   calculator.operatorToggle = false;
-  operatorButtonToggle();
+  calculator.toggleOperatorButtons();
   if (calculator.equalToggle) calculator.clear();
   const userInput = event.target.getAttribute('data-key');
-
-  // Prevents the user from entering multiple decimals
-  if (userInput === '.' && calculator.currentValue.includes('.')) return;
   calculator.typeToCurrentValue(userInput);
   calculator.updateDisplay();
 };
@@ -136,7 +132,7 @@ const operatorClickHandler = (event) => {
   calculator.equalToggle = false;
   calculator.operatorToggle = true;
   event.target.classList.add('active');
-  operatorButtonToggle();
+  calculator.toggleOperatorButtons();
   if (!calculator.operator) {
     const userSelection = event.target.getAttribute('data-key');
     calculator.selectOperator(userSelection);
