@@ -142,10 +142,11 @@ const operatorClickHandler = (event) => {
   if (!calculator.currentValue && !calculator.previousValue) return;
   calculator.equalToggle = false;
   calculator.operatorToggle = true;
+  const userSelection = event.target.getAttribute('data-key');
   event.target.classList.add('active');
   calculator.toggleOperatorButtons();
   if (!calculator.operator) {
-    const userSelection = event.target.getAttribute('data-key');
+    // const userSelection = event.target.getAttribute('data-key');
     calculator.selectOperator(userSelection);
   } else {
     calculator.operate();
@@ -154,8 +155,8 @@ const operatorClickHandler = (event) => {
       return;
     }
     calculator.updateDisplay(calculator.currentValue);
-    const userInput = event.target.getAttribute('data-key');
-    calculator.selectOperator(userInput);
+    // const userInput = event.target.getAttribute('data-key');
+    calculator.selectOperator(userSelection);
   }
 };
 
