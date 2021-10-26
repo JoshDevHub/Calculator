@@ -64,4 +64,5 @@
     - Reconsider organization of markup and CSS
     - Put event handlers in an object?
     - Review calculator object.
+    - Consider logic for displaying decimals.
     - Review selectors.
