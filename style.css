@@ -8,9 +8,9 @@ button {
 }
 
 :root {
-  --calc-color: #007a99;
+  --calc-color: hsl(192, 100%, 30%);
   --calc-display: hsl(192, 100%, 10%);
-  --main-bg-color: hsl(231, 100%, 3%);
+  --black-color: hsl(231, 100%, 3%);
   --orange-color: hsl(29, 100%, 74%);
   --dim-orange-color: hsl(29, 100%, 75%);
   --red-color: hsl(0, 75%, 75%);
@@ -23,7 +23,7 @@ button {
 }
 
 html {
-  background-color: var(--main-bg-color);
+  background-color: var(--black-color);
   color: var(--white-color);
   font-size: 16px;
   text-align: center;
@@ -45,7 +45,7 @@ html {
 .calculator__display {
   background-color: var(--calc-display);
   border-radius: 5px;
-  border: 1px solid black;
+  border: 1px solid var(--black-color);
   flex-basis: 28%;
   padding-right: 1rem;
   padding-top: 4rem;
@@ -55,12 +55,13 @@ html {
 .calculator__display__value {
   font-family: "Chakra Petch";
   font-size: 2rem;
+  font-weight: 700;
 }
 
 
 .calculator__key__container {
-  background-color: var(--main-bg-color);
-  border: 1px solid var(--main-bg-color);
+  background-color: var(--black-color);
+  border: 1px solid var(--black-color);
   border-radius: 5px;
   display: grid;
   flex-basis: 72%;
@@ -70,7 +71,7 @@ html {
 
 button {
   background-color: var(--white-color);
-  border: 1px solid var(--main-bg-color);
+  border: 1px solid var(--black-color);
   border-radius: 5px;
   width: 100%;
 }
@@ -100,7 +101,7 @@ button:disabled {
 
 .active {
   background-color: var(--orange-color);
-  color: black;
+  color: var(--black-color);
   box-shadow: 2px 2px 3px 0px rgba(0,0,0,0.75) inset;
   -webkit-box-shadow: 2px 2px 3px 0px rgba(0,0,0,0.75) inset;
   -moz-box-shadow: 2px 2px 3px 0px rgba(0,0,0,0.75) inset;
