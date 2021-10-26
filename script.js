@@ -6,8 +6,9 @@ const calculator = {
   maxDisplayDigits: 12,
 
   /**
-   * bool to check if equals key has just been pressed, which allows for resetting
-   * everything if the user goes to pressing number keys after equals key.
+   * bools to check if equals or operator has just been pressed, which allows 
+   * calculator state to be reset if a number is keyed after equals, and allows 
+   * operator keys to be disabled after user chooses an operator.
    */
   equalToggle: false,
   operatorToggle: false,
@@ -73,6 +74,8 @@ const calculator = {
     this.toggleOperatorButtons();
   },
   typeToCurrentValue(input) {
+    // Prevents user from keying in '0' as first part of input.
+    if (input === '0' && !this.currentValue) return;
     // Prevents user from entering multiple decimals
     if (input === '.' && this.currentValue.includes('.')) return;
     this.currentValue += input;
