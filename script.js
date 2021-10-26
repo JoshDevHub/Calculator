@@ -60,45 +60,49 @@ const calculator = {
     this.equalToggle = false;
     this.operatorToggle = false;
     this.toggleOperatorButtons();
-    this.updateDisplay();
+    this.updateDisplay('0');
   },
   equals() {
     // Prevent equals being pressed repeatedly.
     if (!this.currentValue || !this.previousValue) return;
     this.operate();
+    if (this.currentValue === 'Error!') {
+      this.handleDivideByZero();
+      return;
+    }
     this.operator = '';
-    this.updateDisplay();
+    this.updateDisplay(this.currentValue);
     this.previousValue = '';
     this.equalToggle = true;
     this.operatorToggle = false;
     this.toggleOperatorButtons();
   },
   typeToCurrentValue(input) {
-    // Prevents user from keying in '0' as first part of input.
-    if (input === '0' && !this.currentValue) return;
     // Prevents user from entering multiple decimals
     if (input === '.' && this.currentValue.includes('.')) return;
+    // Prevents user entering useless zeroes
+    if (input === '0' && this.currentValue.startsWith('0') && !this.currentValue.includes('.')) return;
     this.currentValue += input;
-    this.updateDisplay();
+    this.updateDisplay(this.currentValue);
   },
   selectOperator(input) {
     this.operator = input;
     this.previousValue = this.currentValue;
     this.currentValue = '';
   },
-  updateDisplay() {
+  updateDisplay(value) {
     // prevent display text from overflowing
-    if (this.currentValue.length > this.maxDisplayDigits) {
-      calculatorDisplay.textContent = this.currentValue.slice(
+    if (value.length > this.maxDisplayDigits) {
+      calculatorDisplay.textContent = value.slice(
         -this.maxDisplayDigits
       );
     } else {
-      calculatorDisplay.textContent = this.currentValue;
+      calculatorDisplay.textContent = value;
     }
   },
   delete() {
     this.currentValue = this.currentValue.slice(0, -1);
-    this.updateDisplay();
+    this.updateDisplay(this.currentValue);
   },
   toggleOperatorButtons() {
     if (this.operatorToggle) {
@@ -109,6 +113,10 @@ const calculator = {
         key.classList.remove('active');
       })
     }
+  },
+  handleDivideByZero() {
+    this.clear();
+    this.updateDisplay('NO CAN DO');
   }
 };
 
@@ -127,7 +135,7 @@ const numKeyClickHandler = (event) => {
   if (calculator.equalToggle) calculator.clear();
   const userInput = event.target.getAttribute('data-key');
   calculator.typeToCurrentValue(userInput);
-  calculator.updateDisplay();
+  calculator.updateDisplay(calculator.currentValue);
 };
 
 const operatorClickHandler = (event) => {
@@ -141,7 +149,11 @@ const operatorClickHandler = (event) => {
     calculator.selectOperator(userSelection);
   } else {
     calculator.operate();
-    calculator.updateDisplay();
+    if (calculator.currentValue === 'Error!') {
+      calculator.handleDivideByZero();
+      return;
+    }
+    calculator.updateDisplay(calculator.currentValue);
     const userInput = event.target.getAttribute('data-key');
     calculator.selectOperator(userInput);
   }
