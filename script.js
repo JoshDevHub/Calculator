@@ -147,8 +147,8 @@ const operatorClickHandler = (event) => {
   if (!calculator.currentValue && !calculator.previousValue) return;
   calculator.equalToggle = false;
   calculator.operatorToggle = true;
-  const userSelection = event.target.getAttribute('data-key');
-  event.target.classList.add('active');
+  const userSelection = event.getAttribute('data-key');
+  event.classList.add('active');
   calculator.toggleOperatorButtons();
   if (!calculator.operator) {
     // const userSelection = event.target.getAttribute('data-key');
@@ -168,8 +168,25 @@ const operatorClickHandler = (event) => {
 // Add event listeners
 numberKeys.forEach((key) => key.addEventListener('click', numKeyClickHandler));
 operatorKeys.forEach((key) =>
-  key.addEventListener('click', operatorClickHandler)
-);
+  key.addEventListener('click', (event) => {
+    const btnPressed = event.target
+    operatorClickHandler(btnPressed);
+  }  
+));
 equalsKey.addEventListener('click', () => calculator.equals());
 clearKey.addEventListener('click', () => calculator.clear());
 delKey.addEventListener('click', () => calculator.delete());
+
+window.addEventListener('keydown', (event) => {
+  const btnPressed = document.querySelector(`button[data-key-code="${event.code}"]`);
+  // console.log(event.code);
+  event.preventDefault();
+  if (!btnPressed) return;
+  if (btnPressed === delKey) {
+    calculator.delete();
+  } else if (btnPressed === equalsKey) {
+    calculator.equals();
+  } else if ([...operatorKeys].includes(btnPressed)) {
+    operatorClickHandler(btnPressed);
+  }
+})
