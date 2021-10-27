@@ -4,11 +4,9 @@ const calculator = {
   previousValue: '',
   operator: '',
   maxDisplayDigits: 12,
-
   /**
-   * bools to check if equals or operator has just been pressed, which allows
-   * calculator state to be reset if a number is keyed after equals, and allows
-   * operator keys to be disabled after user chooses an operator.
+   * Booleans that serve to check if the user has just activated the equals or
+   * operator keys. This allows behavior of these keys to situationally change.
    */
   equalToggle: false,
   operatorToggle: false,
@@ -43,14 +41,18 @@ const calculator = {
         result = this.multiply();
         break;
     }
+    // Leads to division by zero handling
     if (result === 'Error!') {
       this.currentValue = result;
     } else {
-      // Round numbers to the precision allowed by the display.
-      const correctedResult = parseFloat(
+      /**
+       *  This rounds numbers so they fit neatly with the display AND it gets
+       *  rid of common floating point arithmetic errors.
+       */ 
+      const roundedResult = parseFloat(
         result.toPrecision(this.maxDisplayDigits)
       );
-      this.currentValue = correctedResult.toString();
+      this.currentValue = roundedResult.toString();
     }
   },
   clear() {
@@ -70,9 +72,9 @@ const calculator = {
       this.handleDivideByZero();
       return;
     }
-    this.operator = '';
     this.updateDisplay(this.currentValue);
     this.previousValue = '';
+    this.operator = '';
     this.equalToggle = true;
     this.operatorToggle = false;
   },
@@ -95,10 +97,10 @@ const calculator = {
     this.currentValue = '';
   },
   updateDisplay(value) {
-    // prevent display text from overflowing
+    // Prevents display value from overflowing with large numbers.
     if (value.length > this.maxDisplayDigits) {
       const expValue = parseFloat(value).toExponential(
-        this.maxDisplayDigits - 5
+        this.maxDisplayDigits - 6
       );
       calculatorDisplay.textContent = expValue;
     } else {
@@ -134,25 +136,23 @@ const clearKey = document.querySelector('.clear__key');
 const delKey = document.querySelector('.del__key');
 
 // event handlers
-const numKeyClickHandler = (event) => {
+const numKeyEventHandler = (eventTarget) => {
   calculator.operatorToggle = false;
   calculator.toggleOperatorButtons();
   if (calculator.equalToggle) calculator.clear();
-  // const userInput = event.target.getAttribute('data-key');
-  const userInput = event.getAttribute('data-key');
+  const userInput = eventTarget.getAttribute('data-key');
   calculator.typeToCurrentValue(userInput);
   calculator.updateDisplay(calculator.currentValue);
 };
 
-const operatorClickHandler = (event) => {
+const operatorEventHandler = (eventTarget) => {
   if (!calculator.currentValue && !calculator.previousValue) return;
   calculator.equalToggle = false;
   calculator.operatorToggle = true;
-  const userSelection = event.getAttribute('data-key');
-  event.classList.add('active');
+  const userSelection = eventTarget.getAttribute('data-key');
+  eventTarget.classList.add('active');
   calculator.toggleOperatorButtons();
   if (!calculator.operator) {
-    // const userSelection = event.target.getAttribute('data-key');
     calculator.selectOperator(userSelection);
   } else {
     calculator.operate();
@@ -161,7 +161,6 @@ const operatorClickHandler = (event) => {
       return;
     }
     calculator.updateDisplay(calculator.currentValue);
-    // const userInput = event.target.getAttribute('data-key');
     calculator.selectOperator(userSelection);
   }
 };
@@ -170,13 +169,13 @@ const operatorClickHandler = (event) => {
 numberKeys.forEach((key) =>
   key.addEventListener('click', (event) => {
     const eventTarget = event.target;
-    numKeyClickHandler(eventTarget);
+    numKeyEventHandler(eventTarget);
   })
 );
 operatorKeys.forEach((key) =>
   key.addEventListener('click', (event) => {
     const btnPressed = event.target;
-    operatorClickHandler(btnPressed);
+    operatorEventHandler(btnPressed);
   })
 );
 equalsKey.addEventListener('click', () => calculator.equals());
@@ -193,9 +192,9 @@ window.addEventListener('keydown', (event) => {
   } else if (btnPressed === equalsKey || event.key === 'Enter') {
     calculator.equals();
   } else if ([...operatorKeys].includes(btnPressed)) {
-    operatorClickHandler(btnPressed);
+    operatorEventHandler(btnPressed);
   } else if ([...numberKeys].includes(btnPressed)) {
-    numKeyClickHandler(btnPressed);
+    numKeyEventHandler(btnPressed);
   } else {
     return;
   }
