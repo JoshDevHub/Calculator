@@ -138,7 +138,8 @@ const numKeyClickHandler = (event) => {
   calculator.operatorToggle = false;
   calculator.toggleOperatorButtons();
   if (calculator.equalToggle) calculator.clear();
-  const userInput = event.target.getAttribute('data-key');
+  // const userInput = event.target.getAttribute('data-key');
+  const userInput = event.getAttribute('data-key');
   calculator.typeToCurrentValue(userInput);
   calculator.updateDisplay(calculator.currentValue);
 };
@@ -166,27 +167,36 @@ const operatorClickHandler = (event) => {
 };
 
 // Add event listeners
-numberKeys.forEach((key) => key.addEventListener('click', numKeyClickHandler));
+numberKeys.forEach((key) =>
+  key.addEventListener('click', (event) => {
+    const eventTarget = event.target;
+    numKeyClickHandler(eventTarget);
+  })
+);
 operatorKeys.forEach((key) =>
   key.addEventListener('click', (event) => {
-    const btnPressed = event.target
+    const btnPressed = event.target;
     operatorClickHandler(btnPressed);
-  }  
-));
+  })
+);
 equalsKey.addEventListener('click', () => calculator.equals());
 clearKey.addEventListener('click', () => calculator.clear());
 delKey.addEventListener('click', () => calculator.delete());
 
 window.addEventListener('keydown', (event) => {
-  const btnPressed = document.querySelector(`button[data-key-code="${event.code}"]`);
-  // console.log(event.code);
+  const btnPressed = document.querySelector(
+    `button[data-key="${event.key}"]`
+  );
   event.preventDefault();
-  if (!btnPressed) return;
-  if (btnPressed === delKey) {
+  if (btnPressed === delKey || event.key === 'Backspace') {
     calculator.delete();
-  } else if (btnPressed === equalsKey) {
+  } else if (btnPressed === equalsKey || event.key === 'Enter') {
     calculator.equals();
   } else if ([...operatorKeys].includes(btnPressed)) {
     operatorClickHandler(btnPressed);
+  } else if ([...numberKeys].includes(btnPressed)) {
+    numKeyClickHandler(btnPressed);
+  } else {
+    return;
   }
-})
+});
