@@ -53,7 +53,7 @@
 
 - [x] Add keyboard support.
 
-- [ ] Styling
+- [x] Styling
     **Planning**
     - Add blinking cursor to display?
     - Footer?
