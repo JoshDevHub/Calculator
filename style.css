@@ -69,9 +69,19 @@ html {
 }
 
 .calculator__display__value {
+  animation: 1s step-end infinite blinking;
   font-family: "Chakra Petch";
   font-size: 2rem;
   font-weight: 700;
+}
+
+@keyframes blinking {
+  from, to {
+    border-right: 1px solid transparent;
+  }
+  50% {
+    border-right: 1px solid var(--white-color);
+  }
 }
 
 button {
