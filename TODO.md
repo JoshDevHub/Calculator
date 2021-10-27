@@ -51,18 +51,18 @@
 
 - [x] Replace '+/-' key with backspace and give the app backspace functionality.
 
-- [ ] Add keyboard support.
+- [x] Add keyboard support.
 
 - [ ] Styling
     **Planning**
-    - Alter colors of buttons -- make different groups of buttons different colors.
-    - Change fonts. Use icons for the operators.
-    - Develop hover / click affects for the buttons. Convey the operator system to the user. (Might need to work with script on this)
+    - Add blinking cursor to display?
     - Footer?
 
 - [ ] Overall Refactoring
     - Reconsider organization of markup and CSS
-    - Put event handlers in an object?
     - Review calculator object.
-    - Consider logic for displaying decimals.
+    - Consider logic for displaying decimals and larger numbers.
     - Review selectors.
+    - Organize project root
+
+- [ ] Deploy
