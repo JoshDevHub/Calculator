@@ -95,6 +95,11 @@ button:hover {
   opacity: 0.8;
 }
 
+button:focus {
+  opacity: 0.8;
+  outline: none;
+}
+
 button:active {
   box-shadow: 2px 2px 3px 0px rgba(0,0,0,0.75) inset;
   -webkit-box-shadow: 2px 2px 3px 0px rgba(0,0,0,0.75) inset;
