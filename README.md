@@ -18,7 +18,7 @@ This was a learning project meant develop skill with using vanilla JavaScript. T
 
 These are a low priority for me right now as I want to move deeper into the Odin Project curriculum, but I may return in the future to implement some of these ideas:
 
-- [ ] Add more operators. Good candidates include '%' and '+/-' buttons, which are common calculator features. Others I could include would be exponent and factorial operators.
+- [ ] Add more operators. Good candidates include `%` and `+/-` buttons, which are common calculator features. Others I could include would be exponent and factorial operators.
 - [ ] Make the display of the calculator larger and allow the previous value and the current chosen operator to be tracked in the display. With a larger display, I could also potentially wrap the number as it gets larger instead of having to use rounding and exponential notation to avoid having numbers overflow the display container.
 - [ ] Give more visual feedback in the display to communicate that something is happening to the user when key actions like selecting an operator or pressing equals occur. A common one would be just to briefly make the display flash off and back on.
 - [ ] Make keyboard play the same 'button pressed' look for their respective keys as clicking the keypad currently does.
