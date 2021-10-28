@@ -31,4 +31,4 @@ To the Odin Project
 
 ## License
 
-![alt-text](https://img.shields.io/badge/LICENSE-GNU-blue?link=https://github.com/jmsmith1018/Calculator/blob/main/COPYING.txt)
+![alt-text](https://img.shields.io/badge/LICENSE-GNU%20GPL-blue)
